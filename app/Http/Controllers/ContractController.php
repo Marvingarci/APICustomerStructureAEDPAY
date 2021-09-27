@@ -6,6 +6,7 @@ use App\Models\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreContractRequest;
 
 class ContractController extends Controller
 {
@@ -35,9 +36,32 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContractRequest $request)
     {
-        //
+        $uuid = Str::uuid()->toString();
+
+        $data = $request->validated();
+
+        $contract = new Contract;
+        $contract->contractID = $uuid; 
+        $contract->location_acc_locationID = $data['location_acc_locationID'];
+        $contract->services_catalog_corpID = $data['services_catalog_corpID'];
+        $contract->fullName = $data['fullName'];
+        $contract->terms = $data['terms'];
+        $contract->description = $data['description'];
+        $contract->amount = $data['amount'];
+        $contract->num_month = $data['num_month'];
+        $contract->num_payments = $data['num_payments'];
+        $contract->contract_body = $data['contract_body'];
+        $contract->startDate = $data['startDate'];
+        $contract->endDate = $data['endDate'];
+        $contract->status = $data['status'];
+        $contract->signature = $data['signature'];
+        $contract->save();
+
+        return response()->json([
+            'message' => 'Contract created succesfully'
+        ], 201);
     }
 
     /**

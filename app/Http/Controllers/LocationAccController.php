@@ -17,7 +17,7 @@ class LocationAccController extends Controller
      */
     public function index()
     {
-        return response()->json(LocationAcc::all());
+        return response()->json(LocationAcc::all()->with(['contract']));
 
     }
 

@@ -24,7 +24,7 @@ class LocationAcc extends Model
         'locationDestination'
     ];
 
-    public function contracts()
+    public function contract()
     {
         return $this->hasMany(Contract::class);
     }

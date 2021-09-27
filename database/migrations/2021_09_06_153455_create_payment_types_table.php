@@ -18,9 +18,14 @@ class CreatePaymentTypesTable extends Migration
             $table->foreignUuid('primary_acc_pmaID');
             $table->string('fullName');
             $table->string('ccn');
+            $table->string('address');
+            $table->string('address2');
             $table->string('exMonth');
             $table->string('exYear');
+            $table->string('city');
+            $table->string('state');
             $table->string('ccv');
+            $table->string('zip');
             $table->string('cardType');
             $table->timestamps();
 

@@ -18,7 +18,7 @@ class CreateContractsTable extends Migration
             $table->foreignUuid('location_acc_locationID');
             $table->foreignUuid('services_catalog_corpID');
             $table->string('fullName');
-            $table->integer('terms');
+            $table->string('terms');
             $table->string('description');
             $table->double('amount');
             $table->integer('num_month');

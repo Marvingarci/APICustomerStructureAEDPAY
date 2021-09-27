@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePaymentRequest extends FormRequest
+class StoreContractRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,20 @@ class StorePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'payId' => [],
-            'primary_acc_pmaID' => ['required'],
+            'contractID' => [],
+            'location_acc_locationID' => ['required'],
+            'services_catalog_corpID' => ['required'],
             'fullName' => ['required'],
-            'ccn' => ['required'],
-            'exMonth' => ['required'],
-            'exYear' => ['required'],
-            'ccv' => ['required'],
-            'cardType' => ['required'],
-            'address' => ['required'],
-            'address2' => ['required'],
-            'zip' => ['required'],
-            'city' => ['required'],
-            'state' => ['required'],
-            'locationsToAttach' => []
+            'terms' => ['required'],
+            'description' => ['required'],
+            'amount' => ['required'],
+            'num_month' => ['required'],
+            'num_payments' => ['required'],
+            'contract_body' => ['required'],
+            'startDate' => ['required'],
+            'endDate' => ['required'],
+            'status' => ['required'],
+            'signature' => ['required']
         ];
     }
 

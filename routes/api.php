@@ -48,7 +48,7 @@ Route::post('register', [PrimaryAccController::class,'save']);
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('logout', [UserController::class,'logout']);
     Route::get('user', [UserController::class,'getAuthenticatedUser']);
-    Route::get('closed', 'DataController@closed');
+    // Route::get('closed', 'DataController@closed');
     Route::apiResource('contract', ContractController::class);
     Route::apiResource('account', PrimaryAccController::class);
     Route::apiResource('location', LocationAccController::class);

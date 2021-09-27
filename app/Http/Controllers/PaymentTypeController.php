@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentType;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdatePaymentRequest;
 use App\Http\Requests\StorePaymentRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -54,6 +55,11 @@ class PaymentTypeController extends Controller
         $account->exYear = $data['exYear'];
         $account->ccv = $data['ccv'];
         $account->cardType = $data['cardType'];
+        $account->address = $data['address'];
+        $account->address2 = $data['address2'];
+        $account->city = $data['city'];
+        $account->state = $data['state'];
+        $account->zip = $data['zip'];
         $account->save();
 
         foreach ($locations as $location) {
@@ -103,9 +109,38 @@ class PaymentTypeController extends Controller
      * @param  \App\Models\PaymentType  $paymentType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaymentType $paymentType)
+    public function update(UpdatePaymentRequest $request)
     {
-        //
+        $data = $request->validated();
+        $locations = $data['locationsToAttach'];
+
+        $account = PaymentType::where('payId', $data['payId'])->first();
+        $account->primary_acc_pmaID = $data['primary_acc_pmaID']; 
+        $account->fullName = $data['fullName'];
+        $account->ccn = $data['ccn'];
+        $account->address = $data['address'];
+        $account->address2 = $data['address2'];
+        $account->city = $data['city'];
+        $account->state = $data['state'];
+        $account->zip = $data['zip'];
+        $account->exMonth = $data['exMonth'];
+        $account->exYear = $data['exYear'];
+        $account->ccv = $data['ccv'];
+        $account->cardType = $data['cardType'];
+        $account->save();
+
+
+        foreach ($locations as $location) {
+            if($location != null){
+                $location = LocationAcc::where('locationID', $location)->first();
+                $location->payment_type_payId = $account->payId;
+                $location->save();
+            } 
+        }
+        
+        return response()->json([
+            'message' => 'Payment method edited succesfully'
+        ], 201);
     }
 
     /**
@@ -114,8 +149,14 @@ class PaymentTypeController extends Controller
      * @param  \App\Models\PaymentType  $paymentType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaymentType $paymentType)
+    public function destroy(LocationAcc $payment)
     {
-        //
+        $location = LocationAcc::where('locationID', $payment['locationID'])->first();
+        $location->payment_type_payId = null;
+        $location->save();
+
+        return response()->json([
+            'message' => 'Payment method deselected succesfully'
+        ], 201);
     }
 }

@@ -16,11 +16,12 @@ class CreateServicesCatalogsTable extends Migration
         Schema::create('services_catalogs', function (Blueprint $table) {
             $table->id();            
             $table->string('corcusID');
-            $table->integer('terms');
+            $table->string('terms');
             $table->string('description');
             $table->double('amount');
             $table->integer('num_month');
             $table->integer('num_payments');
+            $table->longText('contract_body');
             $table->timestamps();
         });
     }
