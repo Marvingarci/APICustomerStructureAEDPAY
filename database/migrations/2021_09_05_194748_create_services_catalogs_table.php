@@ -22,6 +22,7 @@ class CreateServicesCatalogsTable extends Migration
             $table->integer('num_month');
             $table->integer('num_payments');
             $table->longText('contract_body');
+            $table->integer('active');
             $table->timestamps();
         });
     }

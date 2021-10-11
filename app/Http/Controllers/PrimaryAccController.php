@@ -57,7 +57,7 @@ class PrimaryAccController extends Controller
         $account->password = bcrypt($data['password']);
         $account->save();
 
-        // event(new Registered($account));
+        //event(new Registered($account));
 
         // Auth::login($account);
 
@@ -81,7 +81,15 @@ class PrimaryAccController extends Controller
         $account->password = bcrypt($data['password']);
         $account->save();
 
-        // event(new Registered($account));
+        // $user = User::create([
+        //     'pmaID' => $account->pmaID = $uuid,
+        //     'firstName' => $data['firstName'],
+        //     'email' =>  $data['email'],
+        //     'password' => bcrypt($data['password']),
+        //     'aedAsignType' => $data['aedAsignType'],
+        // ]);
+
+        //event(new Registered($user));
 
         // Auth::login($account);
 
@@ -100,7 +108,7 @@ class PrimaryAccController extends Controller
     {
 
        // $primaryAcc = PrimaryAcc::find($id)->with(['locations']);
-        $primaryAcc = DB::table('primary_accs')->where('email', $email)->first();
+        $primaryAcc = DB::table('primary_accs')->where('pmaID', $email)->first();
         $locations = LocationAcc::where('primary_acc_pmaID', $primaryAcc->pmaID)->with(['contract', 'payment'])->get();
         $payments = PaymentType::where('primary_acc_pmaID', $primaryAcc->pmaID)->with('locations')->get();
         return response()->json([

@@ -14,13 +14,14 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
-            $table->integer('invoiceID'); 
+            $table->uuid('invoiceID'); 
             $table->date('Date'); 
             $table->uuid('invoiceNumber'); 
-            $table->integer('contractID'); 
-            $table->integer('locationID'); 
-            $table->float('TotalInvoice'); 
+            $table->uuid('statusin'); 
+            $table->uuid('contractID'); 
+            $table->uuid('locationID'); 
+            $table->integer('num_payments_p'); 
+            $table->double('TotalInvoice'); 
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ class CreateCorporateCustomersTable extends Migration
             $table->uuid('CorpID');             
             $table->text('CorpTitle');             
             $table->text('CompanyName');                       
-            $table->text('locations');             
-            $table->text('dateStarted');  
+            $table->integer('locations');             
+            $table->date('dateStarted');  
             $table->timestamps();
         });
     }
