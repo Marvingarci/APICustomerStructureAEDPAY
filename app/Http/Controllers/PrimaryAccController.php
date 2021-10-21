@@ -109,12 +109,14 @@ class PrimaryAccController extends Controller
 
        // $primaryAcc = PrimaryAcc::find($id)->with(['locations']);
         $primaryAcc = DB::table('primary_accs')->where('pmaID', $email)->first();
+        $corporate = DB::table('corporate_customers')->where('CorpID', $primaryAcc->aedAsignType)->first();
         $locations = LocationAcc::where('primary_acc_pmaID', $primaryAcc->pmaID)->with(['contract', 'payment'])->get();
         $payments = PaymentType::where('primary_acc_pmaID', $primaryAcc->pmaID)->with('locations')->get();
         return response()->json([
             'account'=> $primaryAcc,
             'locations' => $locations,
-            'payments' => $payments
+            'payments' => $payments,
+            'corporate'=> $corporate
         ]);
     }
 
