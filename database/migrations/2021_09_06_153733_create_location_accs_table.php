@@ -17,6 +17,7 @@ class CreateLocationAccsTable extends Migration
             $table->uuid('locationID')->primary();
             $table->foreignUuid('primary_acc_pmaID');
             $table->foreignUuid('payment_type_payId')->nullable();
+            $table->foreignUuid('payment_type2_payId')->nullable();
             //$table->foreignUuid('contract_contractID')->nullable();
             $table->string('username');
             $table->string('password');
@@ -28,6 +29,7 @@ class CreateLocationAccsTable extends Migration
 
             $table->foreign('primary_acc_pmaID')->references('pmaID')->on('primary_accs');           
             $table->foreign('payment_type_payId')->references('payId')->on('payment_types');  
+            $table->foreign('payment_type2_payId')->references('payId')->on('payment_types');  
             //$table->foreign('contract_contractID')->references('contractID')->on('contracts');  
             $table->engine = "InnoDB";          
         });

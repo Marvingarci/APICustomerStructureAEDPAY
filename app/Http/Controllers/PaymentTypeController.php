@@ -44,7 +44,8 @@ class PaymentTypeController extends Controller
         $uuid = Str::uuid()->toString();
 
         $data = $request->validated();
-        $locations = $data['locationsToAttach'];
+        $locationsToAttachPrimary = $data['locationsToAttachPrimary'];
+        $locationsToAttachBackUp = $data['locationsToAttachBackUp'];
 
         $account = new PaymentType;
         $account->payId = $uuid; 
@@ -60,12 +61,21 @@ class PaymentTypeController extends Controller
         $account->city = $data['city'];
         $account->state = $data['state'];
         $account->zip = $data['zip'];
+        $account->status = true;
         $account->save();
 
-        foreach ($locations as $location) {
+        foreach ($locationsToAttachPrimary as $location) {
             if($location != null){
                 $location = LocationAcc::where('locationID', $location)->first();
                 $location->payment_type_payId = $uuid;
+                $location->save();
+            } 
+        }
+
+        foreach ($locationsToAttachBackUp as $location) {
+            if($location != null){
+                $location = LocationAcc::where('locationID', $location)->first();
+                $location->payment_type2_payId = $account->payId;
                 $location->save();
             } 
         }
@@ -83,11 +93,17 @@ class PaymentTypeController extends Controller
      */
     public function show($id)
     {
-        $payments = PaymentType::where('primary_acc_pmaID', $id)->with('locations')->get();
+        $payments = PaymentType::where([['primary_acc_pmaID', $id],['status',1]])->with(['locations', 'locationsBackUp'])->get();
         $locations = LocationAcc::where('primary_acc_pmaID', $id)->get();
+
+        $locationsWP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type_payId', null]])->get();
+        $locationsNP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type2_payId', null]])->get();
         return response()->json([
             'payments'=> $payments,
-            'locations' => $locations
+            'locations' => $locations,
+            'locationsWithPrimary' => $locationsWP,
+            'locationsNoPrimary' => $locationsNP,  
+
         ]);
     }
 
@@ -112,7 +128,8 @@ class PaymentTypeController extends Controller
     public function update(UpdatePaymentRequest $request)
     {
         $data = $request->validated();
-        $locations = $data['locationsToAttach'];
+        $locationsToAttachPrimary = $data['locationsToAttachPrimary'];
+        $locationsToAttachBackUp = $data['locationsToAttachBackUp'];
 
         $account = PaymentType::where('payId', $data['payId'])->first();
         $account->primary_acc_pmaID = $data['primary_acc_pmaID']; 
@@ -130,10 +147,18 @@ class PaymentTypeController extends Controller
         $account->save();
 
 
-        foreach ($locations as $location) {
+        foreach ($locationsToAttachPrimary as $location) {
             if($location != null){
                 $location = LocationAcc::where('locationID', $location)->first();
                 $location->payment_type_payId = $account->payId;
+                $location->save();
+            } 
+        }
+
+        foreach ($locationsToAttachBackUp as $location) {
+            if($location != null){
+                $location = LocationAcc::where('locationID', $location)->first();
+                $location->payment_type2_payId = $account->payId;
                 $location->save();
             } 
         }
@@ -157,6 +182,43 @@ class PaymentTypeController extends Controller
 
         return response()->json([
             'message' => 'Payment method deselected succesfully'
+        ], 201);
+    }
+
+    public function destroyBackUp(LocationAcc $payment)
+    {
+        $location = LocationAcc::where('locationID', $payment['locationID'])->first();
+        $location->payment_type2_payId = null;
+        $location->save();
+
+        return response()->json([
+            'message' => 'Payment method deselected succesfully'
+        ], 201);
+    }
+
+    public function disablePayment(Request $payment)
+    {
+        $p = PaymentType::where('payId', $payment->payId)->with(['locations','locationsBackUp'])->first();
+        // dd($p->locationsBackUp);
+        $locationsPrimary = $p->locations;
+        $locationsBackUp = $p->locationsBackUp;
+        $p->status = false;
+        $p->save();
+
+        foreach ($locationsPrimary as $location) {
+            $location = LocationAcc::where('locationID', $location['locationID'])->first();
+            $location->payment_type_payId = null;
+            $location->save();
+        }
+
+        foreach ($locationsBackUp as $location) {
+            $location = LocationAcc::where('locationID', $location['locationID'])->first();
+            $location->payment_type2_payId = null;
+            $location->save();
+        }
+
+        return response()->json([
+            'message' => 'Payment method disable succesfully'
         ], 201);
     }
 }

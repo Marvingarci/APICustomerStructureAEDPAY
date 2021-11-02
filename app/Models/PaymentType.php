@@ -15,7 +15,7 @@ class PaymentType extends Model
 
     protected $fillable = [
         'payId','primary_acc_pmaID','fullName','ccn','exMonth','exYear', 
-        'ccv', 'cardType', 'address','address2', 'city', 'state', 'zip' 
+        'ccv', 'cardType', 'address','address2', 'city', 'state', 'zip', 'status'
     ];
 
     public function primary_acc()
@@ -26,6 +26,11 @@ class PaymentType extends Model
     public function locations()
     {
         return $this->hasMany(LocationAcc::class);
+    }
+
+    public function locationsBackUp()
+    {
+        return $this->hasMany(LocationAcc::class, 'payment_type2_payId', 'payId');
     }
     
 }

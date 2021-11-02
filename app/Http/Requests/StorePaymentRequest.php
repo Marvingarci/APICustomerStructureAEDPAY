@@ -37,7 +37,8 @@ class StorePaymentRequest extends FormRequest
             'zip' => ['required'],
             'city' => ['required'],
             'state' => ['required'],
-            'locationsToAttach' => []
+            'locationsToAttachPrimary' => [],
+            'locationsToAttachBackUp' => [],
         ];
     }
 

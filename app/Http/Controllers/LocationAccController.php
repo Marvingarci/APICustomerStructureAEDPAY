@@ -115,6 +115,13 @@ class LocationAccController extends Controller
             'locationDestination' => 'cfsMelbourne'
         ];
 
+        $data3 = [
+            'location' => 'MiamiCfs',
+            'companyLegalName' => 'Ipsa',
+            'dbDestination' => 'aedPayIpsa',
+            'locationDestination' => 'cfsColombia'
+        ];
+
         if($request->username == 'marvingarci' && $request->password == 'Malegar2015!'){
             return response()->json([
                 'message'=> 'Success',
@@ -124,6 +131,11 @@ class LocationAccController extends Controller
             return response()->json([
                 'message'=> 'Success',
                 'data' => $data2
+            ], 201);
+        }else if ($request->username == 'lilianagarci' && $request->password == 'Malegar2015!'){
+            return response()->json([
+                'message'=> 'Success',
+                'data' => $data3
             ], 201);
         }else{
             return response()->json([

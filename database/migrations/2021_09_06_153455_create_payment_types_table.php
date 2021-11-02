@@ -27,6 +27,7 @@ class CreatePaymentTypesTable extends Migration
             $table->string('ccv');
             $table->string('zip');
             $table->string('cardType');
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('primary_acc_pmaID')->references('pmaID')->on('primary_accs');            $table->engine = "InnoDB";

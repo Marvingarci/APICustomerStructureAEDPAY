@@ -55,6 +55,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::apiResource('account', PrimaryAccController::class);
     Route::apiResource('location', LocationAccController::class);
     Route::apiResource('payment', PaymentTypeController::class);
+    Route::delete('payment-backup/{payment}', [PaymentTypeController::class,'destroyBackUp']);
+    Route::post('payment-disable', [PaymentTypeController::class,'disablePayment']);
 
 });
 
