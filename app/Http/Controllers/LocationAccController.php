@@ -52,6 +52,7 @@ class LocationAccController extends Controller
         $account->companyLegalName = $data['companyLegalName'];
         $account->dbDestination = $data['dbDestination'];
         $account->locationDestination = $data['locationDestination'];
+        $account->status = true;
         $account->save();
 
 
@@ -83,7 +84,15 @@ class LocationAccController extends Controller
      */
     public function edit(LocationAcc $locationAcc)
     {
-        
+        if($locationAcc->status == 0){
+            $locationAcc->update(['status' => 1]);
+        }else{
+            $locationAcc->update(['status' => 0]);
+        }
+
+        return response()->json([
+            'Cambiado con exito'
+        ]);
     }
 
     /**
@@ -140,7 +149,7 @@ class LocationAccController extends Controller
         }else{
             return response()->json([
                 'message'=> 'Invalid credentials'
-            ], 201);
+            ], 400);
 
         }
     }
@@ -154,5 +163,32 @@ class LocationAccController extends Controller
     public function destroy(LocationAcc $locationAcc)
     {
         
+    }
+
+
+    public function disableLocation(Request $request)
+    {
+        $p = LocationAcc::where('locationID', $request->locationID)->first();
+        // $locationsPrimary = $p->locations;
+        // $locationsBackUp = $p->locationsBackUp;
+        //dd($p);
+        $p->status = false;
+        $p->save();
+
+        // foreach ($locationsPrimary as $location) {
+        //     $location = LocationAcc::where('locationID', $location['locationID'])->first();
+        //     $location->payment_type_payId = null;
+        //     $location->save();
+        // }
+
+        // foreach ($locationsBackUp as $location) {
+        //     $location = LocationAcc::where('locationID', $location['locationID'])->first();
+        //     $location->payment_type2_payId = null;
+        //     $location->save();
+        // }
+
+        return response()->json([
+            'message' => 'Location disable succesfully'
+        ], 201);
     }
 }

@@ -21,6 +21,7 @@ class StoreLocation extends FormRequest
             'companyLegalName' => ['required'],
             'dbDestination' => ['required'],
             'locationDestination' => ['required'],
+            'status' => ['required'],
         ];
     }
 

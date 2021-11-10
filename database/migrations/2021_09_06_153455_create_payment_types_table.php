@@ -26,6 +26,7 @@ class CreatePaymentTypesTable extends Migration
             $table->string('state');
             $table->string('ccv');
             $table->string('zip');
+            $table->string('phone');
             $table->string('cardType');
             $table->boolean('status');
             $table->timestamps();

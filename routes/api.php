@@ -53,10 +53,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // Route::get('invoices/{locationID}', [InvoiceController::class,'getInvoicesByLocation']);
     Route::apiResource('contract', ContractController::class);
     Route::apiResource('account', PrimaryAccController::class);
+    Route::get('show-user/{uuid}', [PrimaryAccController::class,'showLoggedUser']);
     Route::apiResource('location', LocationAccController::class);
     Route::apiResource('payment', PaymentTypeController::class);
     Route::delete('payment-backup/{payment}', [PaymentTypeController::class,'destroyBackUp']);
-    Route::post('payment-disable', [PaymentTypeController::class,'disablePayment']);
+    Route::post('paymentDisable', [PaymentTypeController::class,'disablePayment']);
+    Route::post('locationDisable', [LocationAccController::class,'disableLocation']);
+    Route::put('enable-loc-status/{locationAcc}', [LocationAccController::class,'edit']);
 
 });
 

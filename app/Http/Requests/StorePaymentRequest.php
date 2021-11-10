@@ -35,6 +35,7 @@ class StorePaymentRequest extends FormRequest
             'address' => ['required'],
             'address2' => ['required'],
             'zip' => ['required'],
+            'phone' => ['required'],
             'city' => ['required'],
             'state' => ['required'],
             'locationsToAttachPrimary' => [],

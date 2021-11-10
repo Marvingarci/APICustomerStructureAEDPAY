@@ -21,7 +21,8 @@ class LocationAcc extends Model
         'locationName',
         'companyLegalName',
         'dbDestination',
-        'locationDestination'
+        'locationDestination',
+        'status'
     ];
 
     public function contract()

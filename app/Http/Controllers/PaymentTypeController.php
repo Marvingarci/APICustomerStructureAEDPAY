@@ -61,6 +61,7 @@ class PaymentTypeController extends Controller
         $account->city = $data['city'];
         $account->state = $data['state'];
         $account->zip = $data['zip'];
+        $account->phone = $data['phone'];
         $account->status = true;
         $account->save();
 
@@ -94,10 +95,10 @@ class PaymentTypeController extends Controller
     public function show($id)
     {
         $payments = PaymentType::where([['primary_acc_pmaID', $id],['status',1]])->with(['locations', 'locationsBackUp'])->get();
-        $locations = LocationAcc::where('primary_acc_pmaID', $id)->get();
+        $locations = LocationAcc::where([['primary_acc_pmaID', $id], ['status', true]])->get();
 
-        $locationsWP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type_payId', null]])->get();
-        $locationsNP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type2_payId', null]])->get();
+        $locationsWP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type_payId', null], ['status', true]])->get();
+        $locationsNP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type2_payId', null], ['status', true]])->get();
         return response()->json([
             'payments'=> $payments,
             'locations' => $locations,
@@ -143,6 +144,7 @@ class PaymentTypeController extends Controller
         $account->exMonth = $data['exMonth'];
         $account->exYear = $data['exYear'];
         $account->ccv = $data['ccv'];
+        $account->phone = $data['phone'];
         $account->cardType = $data['cardType'];
         $account->save();
 
