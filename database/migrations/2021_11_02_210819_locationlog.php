@@ -14,22 +14,22 @@ class Locationlog extends Migration
     public function up()
     {
         Schema::create('locations_log', function (Blueprint $table) {
-            $table->uuid('locationID');
-            $table->foreignUuid('primary_acc_pmaID');
-            $table->foreignUuid('payment_type_payId')->nullable();
-            $table->foreignUuid('payment_type2_payId')->nullable();
+            $table->uuid('locationId');
+            $table->foreignUuid('primaryAccPmaId');
+            $table->foreignUuid('paymentTypePayId')->nullable();
+            $table->foreignUuid('paymentType2PayId')->nullable();
             $table->string('username');
             $table->string('password');
             $table->string('locationName');
             $table->string('companyLegalName');
-            $table->string('dbDestination');
+            $table->string('dbServer');
             $table->string('locationDestination');
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('primary_acc_pmaID')->references('pmaID')->on('primary_accs');           
-            $table->foreign('payment_type_payId')->references('payId')->on('payment_types');  
-            $table->foreign('payment_type2_payId')->references('payId')->on('payment_types');  
+            $table->foreign('primaryAccPmaId')->references('pmaId')->on('primary_accs');           
+            $table->foreign('paymentTypePayId')->references('payId')->on('payment_types');  
+            $table->foreign('paymentType2PayId')->references('payId')->on('payment_types');  
             $table->engine = "InnoDB";   
         });
     }

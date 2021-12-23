@@ -13,7 +13,7 @@ class User extends Authenticatable implements MustVerifyEmail , JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'primary_accs';
-    protected $primaryKey = 'pmaID';
+    protected $primaryKey = 'pmaId';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail , JWTSubject
      * @var string[]
      */
     protected $fillable = [
-        'pmaID','firstName','lastName','email','password','aedAsignType'
+        'pmaId','firstName','lastName','email','password','aedAsignType'
     ];
 
     /**

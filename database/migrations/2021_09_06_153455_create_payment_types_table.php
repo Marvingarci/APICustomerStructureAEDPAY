@@ -15,7 +15,7 @@ class CreatePaymentTypesTable extends Migration
     {
         Schema::create('payment_types', function (Blueprint $table) {
             $table->uuid('payId')->primary();
-            $table->foreignUuid('primary_acc_pmaID');
+            $table->foreignUuid('primaryAccPmaId');
             $table->string('fullName');
             $table->string('ccn');
             $table->string('address');
@@ -31,7 +31,7 @@ class CreatePaymentTypesTable extends Migration
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('primary_acc_pmaID')->references('pmaID')->on('primary_accs');            $table->engine = "InnoDB";
+            $table->foreign('primaryAccPmaId')->references('pmaId')->on('primary_accs');            $table->engine = "InnoDB";
 
         });
     }

@@ -49,7 +49,7 @@ class PrimaryAccController extends Controller
         $data = $request->validated();
 
         $account = new User;
-        $account->pmaID = $uuid; 
+        $account->pmaId = $uuid; 
         $account->firstName = $data['firstName'];
         $account->lastName = $data['lastName'];
         $account->email = $data['email'];
@@ -73,7 +73,7 @@ class PrimaryAccController extends Controller
         $data = $request->validated();
 
         $account = new User;
-        $account->pmaID = $uuid; 
+        $account->pmaId = $uuid; 
         $account->firstName = $data['firstName'];
         $account->lastName = $data['lastName'];
         $account->email = $data['email'];
@@ -82,7 +82,7 @@ class PrimaryAccController extends Controller
         $account->save();
 
         // $user = User::create([
-        //     'pmaID' => $account->pmaID = $uuid,
+        //     'pmaId' => $account->pmaId = $uuid,
         //     'firstName' => $data['firstName'],
         //     'email' =>  $data['email'],
         //     'password' => bcrypt($data['password']),
@@ -108,10 +108,10 @@ class PrimaryAccController extends Controller
     {
 
        // $primaryAcc = PrimaryAcc::find($id)->with(['locations']);
-        $primaryAcc = DB::table('primary_accs')->where('pmaID', $uuid)->first();
-        $corporate = DB::table('corporate_customers')->where('CorpID', $primaryAcc->aedAsignType)->first();
-        $locations = LocationAcc::where([['primary_acc_pmaID', $primaryAcc->pmaID],['status', true]])->with(['contract', 'payment'])->get();
-        $payments = PaymentType::where('primary_acc_pmaID', $primaryAcc->pmaID)->with('locations')->get();
+        $primaryAcc = DB::table('primary_accs')->where('pmaId', $uuid)->first();
+        $corporate = DB::table('corporate_customers')->where('corpId', $primaryAcc->aedAsignType)->first();
+        $locations = LocationAcc::where([['primaryAccPmaId', $primaryAcc->pmaId],['status', true]])->with(['contract', 'payment'])->get();
+        $payments = PaymentType::where('primaryAccPmaId', $primaryAcc->pmaId)->with('locations')->get();
         return response()->json([
             'account'=> $primaryAcc,
             'locations' => $locations,
@@ -122,8 +122,8 @@ class PrimaryAccController extends Controller
 
     public function showLoggedUser($uuid)
     {
-        $primaryAcc = DB::table('primary_accs')->where('pmaID', $uuid)->first();
-        $corporate = DB::table('corporate_customers')->where('CorpID', $primaryAcc->aedAsignType)->first();
+        $primaryAcc = DB::table('primary_accs')->where('pmaId', $uuid)->first();
+        $corporate = DB::table('corporate_customers')->where('corpId', $primaryAcc->aedAsignType)->first();
         return response()->json([
             'account'=> $primaryAcc,
             'corporate'=> $corporate

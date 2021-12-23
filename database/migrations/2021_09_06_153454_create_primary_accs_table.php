@@ -14,7 +14,7 @@ class CreatePrimaryAccsTable extends Migration
     public function up()
     {
         Schema::create('primary_accs', function (Blueprint $table) {
-            $table->uuid('pmaID')->primary();
+            $table->uuid('pmaId')->primary();
             $table->string('firstName');
             $table->string('lastName');
             $table->string('email')->unique();

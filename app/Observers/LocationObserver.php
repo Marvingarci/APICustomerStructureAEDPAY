@@ -30,16 +30,18 @@ class LocationObserver
         $uuid = Str::uuid()->toString();
 
         DB::table('locations_log')->insert([
-            'locationID' => $locationAcc->locationID ,
-            'primary_acc_pmaID' => $locationAcc->primary_acc_pmaID,
-            'payment_type_payId' => $locationAcc->payment_type_payId,
-            'payment_type2_payId' => $locationAcc->payment_type2_payId,
+            'locationId' => $locationAcc->locationId ,
+            'DID' => $locationAcc->DID ,
+            'fullName' => $locationAcc->fullName ,
+            'primaryAccPmaId' => $locationAcc->primaryAccPmaId,
+            'paymentTypePayId' => $locationAcc->paymentTypePayId,
+            'paymentType2PayId' => $locationAcc->paymentType2PayId,
             'username' => $locationAcc->username,
             'password' => $locationAcc->password,
             'locationName' => $locationAcc->locationName,
             'companyLegalName' => $locationAcc->companyLegalName,
-            'dbDestination' => $locationAcc->dbDestination,
-            'locationDestination' => $locationAcc->locationDestination,
+            'dbServer' => $locationAcc->dbServer,
+            'locationShort' => $locationAcc->locationShort,
             'status' => $locationAcc->status,
         ]);
     }

@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
-    public function getInvoicesByLocation($locationID)
+    public function getInvoicesByLocation($locationId)
     {
-        $invoicesPending = DB::table('invoices')->where([['locationID', $locationID],['statusin', 'pending']])->get();
-        $invoicesPayed = DB::table('invoices')->where([['locationID', $locationID],['statusin', 'paid']])->limit(2)->get();
+        $invoicesPending = DB::table('invoices')->where([['locationId', $locationId],['statusin', 'pending']])->get();
+        $invoicesPayed = DB::table('invoices')->where([['locationId', $locationId],['statusin', 'paid']])->limit(2)->get();
         
         $receipts = DB::table('receipts')
                     ->join('receipt_items', 'receipts.idreceipt','=','receipt_items.idreceipt')
-                    ->select('receipt_items.invoiceID', 'receipts.status', 'receipts.authCod', 'receipts.amount',  'receipts.date')
-                    ->where('idlocation', $locationID)
+                    ->select('receipt_items.invoiceId', 'receipts.status', 'receipts.authCod', 'receipts.amount',  'receipts.date')
+                    ->where('idlocation', $locationId)
                     ->get();
 
         return response()->json([

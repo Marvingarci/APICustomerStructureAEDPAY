@@ -12,14 +12,14 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class PrimaryAcc extends Authenticatable implements MustVerifyEmail , JWTSubject
 {
     use HasFactory, Notifiable;
-    protected $primaryKey = 'pmaID';
+    protected $primaryKey = 'pmaId';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    //protected $casts = ['pmaID' => 'varchar(36)'];
+    //protected $casts = ['pmaId' => 'varchar(36)'];
 
     protected $fillable = [
-        'pmaID','firstName','lastName','email','password','aedAsignType'
+        'pmaId','firstName','lastName','email','password','aedAsignType'
     ];
 
     public function locations()

@@ -9,30 +9,34 @@ class LocationAcc extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'locationID';
+    protected $primaryKey = 'locationId';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'locationID',
-        'primary_acc_pmaID',
-        'payment_type_payId',
+        'locationId',
+        'DID',
+        'primaryAccPmaId',
+        'paymentTypePayId',
+        'paymentType2PayId',
+        'fullName',
         'username',
+        'password',
         'locationName',
         'companyLegalName',
-        'dbDestination',
-        'locationDestination',
-        'status'
+        'dbServer',
+        'locationShort',
+        'status',
     ];
 
     public function contract()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class, 'locationAccLocationId', 'locationId');
     }
 
     public function primary_acc()
     {
-        return $this->belongsTo(PrimaryAcc::class);
+        return $this->belongsTo(PrimaryAcc::class, 'pmaId', 'primaryAccPmaId' );
     }
 
     public function payment()

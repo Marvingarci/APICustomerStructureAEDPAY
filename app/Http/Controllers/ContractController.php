@@ -43,16 +43,16 @@ class ContractController extends Controller
         $data = $request->validated();
 
         $contract = new Contract;
-        $contract->contractID = $uuid; 
-        $contract->location_acc_locationID = $data['location_acc_locationID'];
-        $contract->services_catalog_corpID = $data['services_catalog_corpID'];
+        $contract->contractId = $uuid; 
+        $contract->locationAccLocationId = $data['locationAccLocationId'];
+        $contract->servicesCatalogCorpId = $data['servicesCatalogCorpId'];
         $contract->fullName = $data['fullName'];
         $contract->terms = $data['terms'];
         $contract->description = $data['description'];
         $contract->amount = $data['amount'];
-        $contract->num_month = $data['num_month'];
-        $contract->num_payments = $data['num_payments'];
-        $contract->contract_body = $data['contract_body'];
+        $contract->numMonth = $data['numMonth'];
+        $contract->numPayments = $data['numPayments'];
+        $contract->contractBody = $data['contractBody'];
         $contract->startDate = $data['startDate'];
         $contract->endDate = $data['endDate'];
         $contract->status = $data['status'];
@@ -73,8 +73,8 @@ class ContractController extends Controller
     public function show($id)
     {
          $contracts = DB::table('services_catalogs')->where('corcusID', $id)->get();
-        //  $locations = LocationAcc::where('primary_acc_pmaID', $primaryAcc->pmaID)->get();
-        //  $payments = PaymentType::where('primary_acc_pmaID', $primaryAcc->pmaID)->with('locations')->get();
+        //  $locations = LocationAcc::where('primaryAccPmaId', $primaryAcc->pmaID)->get();
+        //  $payments = PaymentType::where('primaryAccPmaId', $primaryAcc->pmaID)->with('locations')->get();
          return response()->json([
              'contracts'=> $contracts
          ]);

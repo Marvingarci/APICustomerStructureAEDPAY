@@ -26,6 +26,7 @@ return [
     */
 
     'secret' => env('JWT_SECRET'),
+    'identifier' => 'pmaId',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ return [
         */
 
         'passphrase' => env('JWT_PASSPHRASE'),
+        'identifier' => 'pmaId'
 
     ],
 

@@ -25,7 +25,7 @@ class UpdatePaymentRequest extends FormRequest
     {
         return [
             'payId' => ['required'],
-            'primary_acc_pmaID' => ['required'],
+            'primaryAccPmaId' => ['required'],
             'fullName' => ['required'],
             'ccn' => ['required'],
             'exMonth' => ['required'],
@@ -47,7 +47,7 @@ class UpdatePaymentRequest extends FormRequest
     public function messages()
     {
         return [
-            'primary_acc_pmaId.required' => 'primary_pmaID is required',
+            'primaryAccPmaId.required' => 'primary_pmaId is required',
             'fullName.required' => 'Full name is required',
             'ccn.required' => 'Credit Card Number is required',
             'exMonth.required' => 'Expiration month is required',

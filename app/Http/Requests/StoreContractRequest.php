@@ -24,16 +24,16 @@ class StoreContractRequest extends FormRequest
     public function rules()
     {
         return [
-            'contractID' => [],
-            'location_acc_locationID' => ['required'],
-            'services_catalog_corpID' => ['required'],
+            'contractId' => [],
+            'locationAccLocationId' => ['required'],
+            'servicesCatalogCorpId' => ['required'],
             'fullName' => ['required'],
             'terms' => ['required'],
             'description' => ['required'],
             'amount' => ['required'],
-            'num_month' => ['required'],
-            'num_payments' => ['required'],
-            'contract_body' => ['required'],
+            'numMonth' => ['required'],
+            'numPayments' => ['required'],
+            'contractBody' => ['required'],
             'startDate' => ['required'],
             'endDate' => ['required'],
             'status' => ['required'],
@@ -44,7 +44,7 @@ class StoreContractRequest extends FormRequest
     public function messages()
     {
         return [
-            'primary_acc_pmaId.required' => 'primary_pmaID is required',
+            'primaryAccPmaId.required' => 'primary_pmaId is required',
             'fullName.required' => 'Full name is required',
             'ccn.required' => 'Credit Card Number is required',
             'exMonth.required' => 'Expiration month is required',

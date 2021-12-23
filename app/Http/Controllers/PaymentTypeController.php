@@ -49,7 +49,7 @@ class PaymentTypeController extends Controller
 
         $account = new PaymentType;
         $account->payId = $uuid; 
-        $account->primary_acc_pmaID = $data['primary_acc_pmaID']; 
+        $account->primaryAccPmaId = $data['primaryAccPmaId']; 
         $account->fullName = $data['fullName'];
         $account->ccn = $data['ccn'];
         $account->exMonth = $data['exMonth'];
@@ -67,16 +67,16 @@ class PaymentTypeController extends Controller
 
         foreach ($locationsToAttachPrimary as $location) {
             if($location != null){
-                $location = LocationAcc::where('locationID', $location)->first();
-                $location->payment_type_payId = $uuid;
+                $location = LocationAcc::where('locationId', $location)->first();
+                $location->paymentTypePayId = $uuid;
                 $location->save();
             } 
         }
 
         foreach ($locationsToAttachBackUp as $location) {
             if($location != null){
-                $location = LocationAcc::where('locationID', $location)->first();
-                $location->payment_type2_payId = $account->payId;
+                $location = LocationAcc::where('locationId', $location)->first();
+                $location->paymentType2PayId = $account->payId;
                 $location->save();
             } 
         }
@@ -94,11 +94,11 @@ class PaymentTypeController extends Controller
      */
     public function show($id)
     {
-        $payments = PaymentType::where([['primary_acc_pmaID', $id],['status',1]])->with(['locations', 'locationsBackUp'])->get();
-        $locations = LocationAcc::where([['primary_acc_pmaID', $id], ['status', true]])->get();
+        $payments = PaymentType::where([['primaryAccPmaId', $id],['status',1]])->with(['locations', 'locationsBackUp'])->get();
+        $locations = LocationAcc::where([['primaryAccPmaId', $id], ['status', true]])->get();
 
-        $locationsWP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type_payId', null], ['status', true]])->get();
-        $locationsNP = LocationAcc::where([['primary_acc_pmaID', $id], ['payment_type2_payId', null], ['status', true]])->get();
+        $locationsWP = LocationAcc::where([['primaryAccPmaId', $id], ['paymentTypePayId', null], ['status', true]])->get();
+        $locationsNP = LocationAcc::where([['primaryAccPmaId', $id], ['paymentType2PayId', null], ['status', true]])->get();
         return response()->json([
             'payments'=> $payments,
             'locations' => $locations,
@@ -133,7 +133,7 @@ class PaymentTypeController extends Controller
         $locationsToAttachBackUp = $data['locationsToAttachBackUp'];
 
         $account = PaymentType::where('payId', $data['payId'])->first();
-        $account->primary_acc_pmaID = $data['primary_acc_pmaID']; 
+        $account->primaryAccPmaId = $data['primaryAccPmaId']; 
         $account->fullName = $data['fullName'];
         $account->ccn = $data['ccn'];
         $account->address = $data['address'];
@@ -151,16 +151,16 @@ class PaymentTypeController extends Controller
 
         foreach ($locationsToAttachPrimary as $location) {
             if($location != null){
-                $location = LocationAcc::where('locationID', $location)->first();
-                $location->payment_type_payId = $account->payId;
+                $location = LocationAcc::where('locationId', $location)->first();
+                $location->paymentTypePayId = $account->payId;
                 $location->save();
             } 
         }
 
         foreach ($locationsToAttachBackUp as $location) {
             if($location != null){
-                $location = LocationAcc::where('locationID', $location)->first();
-                $location->payment_type2_payId = $account->payId;
+                $location = LocationAcc::where('locationId', $location)->first();
+                $location->paymentType2PayId = $account->payId;
                 $location->save();
             } 
         }
@@ -178,8 +178,8 @@ class PaymentTypeController extends Controller
      */
     public function destroy(LocationAcc $payment)
     {
-        $location = LocationAcc::where('locationID', $payment['locationID'])->first();
-        $location->payment_type_payId = null;
+        $location = LocationAcc::where('locationId', $payment['locationId'])->first();
+        $location->paymentTypePayId = null;
         $location->save();
 
         return response()->json([
@@ -189,8 +189,8 @@ class PaymentTypeController extends Controller
 
     public function destroyBackUp(LocationAcc $payment)
     {
-        $location = LocationAcc::where('locationID', $payment['locationID'])->first();
-        $location->payment_type2_payId = null;
+        $location = LocationAcc::where('locationId', $payment['locationId'])->first();
+        $location->paymentType2PayId = null;
         $location->save();
 
         return response()->json([
@@ -208,14 +208,14 @@ class PaymentTypeController extends Controller
         $p->save();
 
         foreach ($locationsPrimary as $location) {
-            $location = LocationAcc::where('locationID', $location['locationID'])->first();
-            $location->payment_type_payId = null;
+            $location = LocationAcc::where('locationId', $location['locationId'])->first();
+            $location->paymentTypePayId = null;
             $location->save();
         }
 
         foreach ($locationsBackUp as $location) {
-            $location = LocationAcc::where('locationID', $location['locationID'])->first();
-            $location->payment_type2_payId = null;
+            $location = LocationAcc::where('locationId', $location['locationId'])->first();
+            $location->paymentType2PayId = null;
             $location->save();
         }
 

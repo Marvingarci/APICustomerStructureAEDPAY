@@ -41,7 +41,7 @@ Route::group([
    // Route::post('logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout'])->name('logout'); 
 });
 
-Route::get('invoices/{locationID}', [InvoiceController::class,'getInvoicesByLocation']);
+Route::get('invoices/{locationId}', [InvoiceController::class,'getInvoicesByLocation']);
 
 
 Route::post('login', [UserController::class,'authenticate']);
@@ -50,7 +50,7 @@ Route::post('register', [PrimaryAccController::class,'save']);
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('logout', [UserController::class,'logout']);
     Route::get('user', [UserController::class,'getAuthenticatedUser']);
-    // Route::get('invoices/{locationID}', [InvoiceController::class,'getInvoicesByLocation']);
+    // Route::get('invoices/{locationId}', [InvoiceController::class,'getInvoicesByLocation']);
     Route::apiResource('contract', ContractController::class);
     Route::apiResource('account', PrimaryAccController::class);
     Route::get('show-user/{uuid}', [PrimaryAccController::class,'showLoggedUser']);

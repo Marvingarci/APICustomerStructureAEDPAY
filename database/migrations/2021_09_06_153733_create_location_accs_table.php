@@ -14,24 +14,24 @@ class CreateLocationAccsTable extends Migration
     public function up()
     {
         Schema::create('location_accs', function (Blueprint $table) {
-            $table->uuid('locationID')->primary();
-            $table->foreignUuid('primary_acc_pmaID');
-            $table->foreignUuid('payment_type_payId')->nullable();
-            $table->foreignUuid('payment_type2_payId')->nullable();
-            //$table->foreignUuid('contract_contractID')->nullable();
+            $table->uuid('locationId')->primary();
+            $table->foreignUuid('primaryAccPmaId');
+            $table->foreignUuid('paymentTypePayId')->nullable();
+            $table->foreignUuid('paymentType2PayId')->nullable();
+            //$table->foreignUuid('contract_contractId')->nullable();
             $table->string('username');
             $table->string('password');
             $table->string('locationName');
             $table->string('companyLegalName');
-            $table->string('dbDestination');
+            $table->string('dbServer');
             $table->string('locationDestination');
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('primary_acc_pmaID')->references('pmaID')->on('primary_accs');           
-            $table->foreign('payment_type_payId')->references('payId')->on('payment_types');  
-            $table->foreign('payment_type2_payId')->references('payId')->on('payment_types');  
-            //$table->foreign('contract_contractID')->references('contractID')->on('contracts');  
+            $table->foreign('primaryAccPmaId')->references('pmaId')->on('primary_accs');           
+            $table->foreign('paymentTypePayId')->references('payId')->on('payment_types');  
+            $table->foreign('paymentType2PayId')->references('payId')->on('payment_types');  
+            //$table->foreign('contract_contractId')->references('contractId')->on('contracts');  
             $table->engine = "InnoDB";          
         });
     }

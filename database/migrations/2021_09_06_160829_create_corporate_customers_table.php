@@ -15,9 +15,9 @@ class CreateCorporateCustomersTable extends Migration
     {     
          Schema::create('corporate_customers', function (Blueprint $table) {
             $table->id();
-            $table->uuid('CorpID');             
-            $table->text('CorpTitle');             
-            $table->text('CompanyName');                       
+            $table->uuid('corpId');             
+            $table->text('corpTitle');             
+            $table->text('companyName');                       
             $table->integer('locations');             
             $table->date('dateStarted');  
             $table->timestamps();

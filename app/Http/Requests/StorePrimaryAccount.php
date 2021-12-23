@@ -25,7 +25,7 @@ class StorePrimaryAccount extends FormRequest
     public function rules()
     {
         return [
-            'pmaID' => [],
+            'pmaId' => [],
             'firstName' => ['required', 'max:30'],
             'lastName' => ['required', 'max:30'],
             'email' => ['email', 'required', Rule::unique('primary_accs')],

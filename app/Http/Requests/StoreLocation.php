@@ -14,14 +14,17 @@ class StoreLocation extends FormRequest
     public function rules()
     {
         return [
-            'primary_acc_pmaID' => [],
-            'username' => ['required', 'max:30'],
+            'primaryAccPmaId' => [],
+            'DID' => ['required', 'max:255'],
+            'fullName' => ['required', 'max:255'],
+            'username' => ['required', 'max:255'],
             'password' => ['required'],
             'locationName' => ['required'],
             'companyLegalName' => ['required'],
-            'dbDestination' => ['required'],
-            'locationDestination' => ['required'],
-            'status' => ['required'],
+            'dbServer' => ['required'],
+            'domain' => [],
+            'locationShort' => [],
+            'status' => [],
         ];
     }
 
@@ -33,7 +36,7 @@ class StoreLocation extends FormRequest
             'password.required' => 'Password is required',
             'locationName.required' => 'LocationName is required',
             'companyLegalName.required' => 'companyLegal',
-            'dbDestination.required' => 'dbDestination',
+            'dbServer.required' => 'dbServer',
             'locationDestination.required' => 'localDestination',
 
         ];

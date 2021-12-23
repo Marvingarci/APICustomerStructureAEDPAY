@@ -14,23 +14,23 @@ class CreateContractsTable extends Migration
     public function up()
     {
         Schema::create('contracts', function (Blueprint $table) {
-            $table->uuid('contractID')->primary();
-            $table->foreignUuid('location_acc_locationID');
-            $table->foreignUuid('services_catalog_corpID');
+            $table->uuid('contractId')->primary();
+            $table->foreignUuid('locationAccLocationId');
+            $table->foreignUuid('servicesCatalogCorpId');
             $table->string('fullName');
             $table->string('terms');
             $table->string('description');
             $table->double('amount');
-            $table->integer('num_month');
-            $table->integer('num_payments');
-            $table->longText('contract_body');
+            $table->integer('numMonth');
+            $table->integer('numPayments');
+            $table->longText('contractBody');
             $table->date('startDate');
             $table->date('endDate');
             $table->boolean('status');
             $table->longText('signature')->nullable();
             $table->timestamps();
 
-            $table->foreign('location_acc_locationID')->references('locationID')->on('location_accs');            
+            $table->foreign('locationAccLocationId')->references('locationId')->on('location_accs');            
             $table->engine = "InnoDB";
 
         });

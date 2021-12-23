@@ -9,21 +9,21 @@ class Contract extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'locationID';
+    protected $primaryKey = 'locationId';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'contractID',
-        'location_acc_locationID',
-        'services_catalog_corpID',
+        'contractId',
+        'locationAccLocationId',
+        'servicesCatalogCorpId',
         'fullName',
         'terms',
         'description',
         'amount',
-        'num_month',
-        'num_payments',
-        'contract_body',
+        'numMonth',
+        'numPayments',
+        'contractBody',
         'startDate',
         'endDate',
         'status',
@@ -32,6 +32,6 @@ class Contract extends Model
 
     public function location()
     {
-        return $this->belongsTo(LocationAcc::class);
+        return $this->belongsTo(LocationAcc::class, 'locationId', 'locationAccLocationId');
     }
 }

@@ -44,19 +44,19 @@ class LocationAccController extends Controller
         $data = $request->validated();
 
         $account = new LocationAcc;
-        $account->locationID = $uuid; 
-        $account->primary_acc_pmaID = $data['primary_acc_pmaID']; 
+        $account->locationId = $uuid; 
+        $account->DID = $data['DID']; 
+        $account->primaryAccPmaId = $data['primaryAccPmaId']; 
+        $account->fullName = $data['fullName']; 
         $account->username = $data['username'];
-        $account->password = bcrypt($data['password']);
+        $account->password = $data['password'];
         $account->locationName = $data['locationName'];
         $account->companyLegalName = $data['companyLegalName'];
-        $account->dbDestination = $data['dbDestination'];
-        $account->locationDestination = $data['locationDestination'];
+        $account->dbServer = $data['dbServer'];
+        $account->locationShort = $data['locationShort'];
         $account->status = true;
         $account->save();
 
-
-        
         return response()->json([
             'message' => 'Location created succesfully'
         ], 201);
@@ -110,47 +110,44 @@ class LocationAccController extends Controller
             'password' => 'required'
         ]);
 
-        $data = [
-            'location' => 'Dareville',
-            'companyLegalName' => 'Liliana-s Cars',
-            'dbDestination' => 'aedPayLiliana',
-            'locationDestination' => 'cfsMiami'
-        ];
+        $user = DB::table('Settings')
+        ->where('xx_user_name_tx','=', $request->username)
+        ->where('xx_password_tx','=',$request->password)-> //here I comment this
+        first();
 
-        $data2 = [
-            'location' => 'RiverDale',
-            'companyLegalName' => 'Champions Bros',
-            'dbDestination' => 'aedPayMelvin',
-            'locationDestination' => 'cfsMelbourne'
-        ];
+        //dd($user);
+        // $data = [
+        //     'location' => 'Dareville',
+        //     'companyLegalName' => 'Liliana-s Cars',
+        //     'dbServer' => 'aedPayLiliana',
+        //     'locationDestination' => 'cfsMiami'
+        // ];
 
-        $data3 = [
-            'location' => 'MiamiCfs',
-            'companyLegalName' => 'Ipsa',
-            'dbDestination' => 'aedPayIpsa',
-            'locationDestination' => 'cfsColombia'
-        ];
+        // $data2 = [
+        //     'location' => 'RiverDale',
+        //     'companyLegalName' => 'Champions Bros',
+        //     'dbServer' => 'aedPayMelvin',
+        //     'locationDestination' => 'cfsMelbourne'
+        // ];
 
-        if($request->username == 'marvingarci' && $request->password == 'Malegar2015!'){
+        // $data3 = [
+        //     'location' => 'MiamiCfs',
+        //     'companyLegalName' => 'Ipsa',
+        //     'dbServer' => 'aedPayIpsa',
+        //     'locationDestination' => 'cfsColombia'
+        // ];
+        
+        if(!is_null($user)){
+
+
             return response()->json([
                 'message'=> 'Success',
-                'data' => $data
-            ], 201);
-        } else if ($request->username == 'melvinsevi' && $request->password == 'Malegar2015!'){
-            return response()->json([
-                'message'=> 'Success',
-                'data' => $data2
-            ], 201);
-        }else if ($request->username == 'lilianagarci' && $request->password == 'Malegar2015!'){
-            return response()->json([
-                'message'=> 'Success',
-                'data' => $data3
-            ], 201);
+                'data' => $user
+            ], 200);
         }else{
             return response()->json([
                 'message'=> 'Invalid credentials'
             ], 400);
-
         }
     }
 
@@ -168,7 +165,7 @@ class LocationAccController extends Controller
 
     public function disableLocation(Request $request)
     {
-        $p = LocationAcc::where('locationID', $request->locationID)->first();
+        $p = LocationAcc::where('locationId', $request->locationId)->first();
         // $locationsPrimary = $p->locations;
         // $locationsBackUp = $p->locationsBackUp;
         //dd($p);
@@ -176,14 +173,14 @@ class LocationAccController extends Controller
         $p->save();
 
         // foreach ($locationsPrimary as $location) {
-        //     $location = LocationAcc::where('locationID', $location['locationID'])->first();
-        //     $location->payment_type_payId = null;
+        //     $location = LocationAcc::where('locationId', $location['locationId'])->first();
+        //     $location->paymentTypePayId = null;
         //     $location->save();
         // }
 
         // foreach ($locationsBackUp as $location) {
-        //     $location = LocationAcc::where('locationID', $location['locationID'])->first();
-        //     $location->payment_type2_payId = null;
+        //     $location = LocationAcc::where('locationId', $location['locationId'])->first();
+        //     $location->paymentType2PayId = null;
         //     $location->save();
         // }
 
