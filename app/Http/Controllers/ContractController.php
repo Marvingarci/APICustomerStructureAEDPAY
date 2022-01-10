@@ -59,6 +59,15 @@ class ContractController extends Controller
         $contract->signature = $data['signature'];
         $contract->save();
 
+        // $contracts = Contract::where('locationAccLocationId', $contract->locationAccLocationId)->get();
+
+        // foreach ($contracts as $c) {
+        //     if($c->contractId =! $uuid){
+        //         $c->status = '';
+        //         $c->save();
+        //     }
+        // }
+
         return response()->json([
             'message' => 'Contract created succesfully'
         ], 201);

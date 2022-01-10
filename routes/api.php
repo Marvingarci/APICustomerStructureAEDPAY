@@ -23,7 +23,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum', 'cors'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -44,10 +44,10 @@ Route::group([
 Route::get('invoices/{locationId}', [InvoiceController::class,'getInvoicesByLocation']);
 
 
-Route::post('login', [UserController::class,'authenticate']);
-Route::post('register', [PrimaryAccController::class,'save']);
+Route::post('login', [UserController::class,'authenticate'])->middleware('cors');
+Route::post('register', [PrimaryAccController::class,'save'])->middleware('cors');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify', 'cors']], function() {
     Route::post('logout', [UserController::class,'logout']);
     Route::get('user', [UserController::class,'getAuthenticatedUser']);
     // Route::get('invoices/{locationId}', [InvoiceController::class,'getInvoicesByLocation']);

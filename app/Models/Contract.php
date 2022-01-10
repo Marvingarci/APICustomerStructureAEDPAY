@@ -9,7 +9,7 @@ class Contract extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'locationId';
+    protected $primaryKey = 'contractId';
     public $incrementing = false;
     protected $keyType = 'string';
 
