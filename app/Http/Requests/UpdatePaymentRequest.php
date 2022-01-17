@@ -31,7 +31,7 @@ class UpdatePaymentRequest extends FormRequest
             'exMonth' => ['required'],
             'exYear' => ['required'],
             'ccv' => ['required'],
-            'cardType' => ['required'],
+            // 'cardType' => ['required'],
             'address' => ['required'],
             'address2' => ['required'],
             'zip' => ['required'],
@@ -53,7 +53,7 @@ class UpdatePaymentRequest extends FormRequest
             'exMonth.required' => 'Expiration month is required',
             'exYear.required' => 'Expiration year is required',
             'ccv.required' => 'CCV is required',
-            'cardType.required' => 'Card type is required',
+            // 'cardType.required' => 'Card type is required',
         ];
     }
 }

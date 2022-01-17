@@ -15,7 +15,7 @@ class PaymentType extends Model
 
     protected $fillable = [
         'payId','primaryAccPmaId','fullName','ccn','exMonth','exYear', 
-        'ccv', 'phone', 'cardType', 'address','address2', 'city', 'state', 'zip', 'status'
+        'ccv', 'phone', 'address','address2', 'city', 'state', 'zip', 'status'
     ];
 
     public function primary_acc()
