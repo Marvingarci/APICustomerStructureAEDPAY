@@ -169,8 +169,13 @@ class LocationAccController extends Controller
         // $locationsPrimary = $p->locations;
         // $locationsBackUp = $p->locationsBackUp;
         //dd($p);
-        $p->status = false;
-        $p->save();
+
+        // I used to change state
+        // $p->status = false;
+        // $p->username = $p->username."DISABLED";
+        $p->delete();
+
+
 
         // foreach ($locationsPrimary as $location) {
         //     $location = LocationAcc::where('locationId', $location['locationId'])->first();
@@ -185,7 +190,7 @@ class LocationAccController extends Controller
         // }
 
         return response()->json([
-            'message' => 'Location disable succesfully'
+            'message' => 'Location deleted succesfully'
         ], 201);
     }
 }

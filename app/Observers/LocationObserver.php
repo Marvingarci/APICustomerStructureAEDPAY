@@ -54,7 +54,23 @@ class LocationObserver
      */
     public function deleted(LocationAcc $locationAcc)
     {
-        //
+        $uuid = Str::uuid()->toString();
+
+        DB::table('locations_log')->insert([
+            'locationId' => $locationAcc->locationId ,
+            'DID' => $locationAcc->DID ,
+            'fullName' => $locationAcc->fullName ,
+            'primaryAccPmaId' => $locationAcc->primaryAccPmaId,
+            'paymentTypePayId' => $locationAcc->paymentTypePayId,
+            'paymentType2PayId' => $locationAcc->paymentType2PayId,
+            'username' => $locationAcc->username,
+            'password' => $locationAcc->password,
+            'locationName' => $locationAcc->locationName,
+            'companyLegalName' => $locationAcc->companyLegalName,
+            'dbServer' => $locationAcc->dbServer,
+            'locationShort' => $locationAcc->locationShort,
+            'status' => $locationAcc->status,
+        ]);
     }
 
     /**
@@ -76,6 +92,22 @@ class LocationObserver
      */
     public function forceDeleted(LocationAcc $locationAcc)
     {
-        //
+        $uuid = Str::uuid()->toString();
+
+        DB::table('locations_log')->insert([
+            'locationId' => $locationAcc->locationId ,
+            'DID' => $locationAcc->DID ,
+            'fullName' => $locationAcc->fullName ,
+            'primaryAccPmaId' => $locationAcc->primaryAccPmaId,
+            'paymentTypePayId' => $locationAcc->paymentTypePayId,
+            'paymentType2PayId' => $locationAcc->paymentType2PayId,
+            'username' => $locationAcc->username,
+            'password' => $locationAcc->password,
+            'locationName' => $locationAcc->locationName,
+            'companyLegalName' => $locationAcc->companyLegalName,
+            'dbServer' => $locationAcc->dbServer,
+            'locationShort' => $locationAcc->locationShort,
+            'status' => $locationAcc->status,
+        ]);
     }
 }

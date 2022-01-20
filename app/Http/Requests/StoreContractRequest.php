@@ -29,7 +29,7 @@ class StoreContractRequest extends FormRequest
             'servicesCatalogCorpId' => ['required'],
             'fullName' => ['required'],
             'terms' => ['required'],
-            'description' => ['required'],
+            'description' => [],
             'amount' => ['required'],
             'numMonth' => ['required'],
             'numPayments' => ['required'],
@@ -37,7 +37,13 @@ class StoreContractRequest extends FormRequest
             'startDate' => ['required'],
             'endDate' => ['required'],
             'status' => ['required'],
-            'signature' => ['required']
+            'signature' => ['required'],
+            'freeMonths' => [''],
+            'frequency' => [''],
+            'grossAmount' => [''],
+            'totalContract' => [''],
+            'netContract' => [''],
+            'netAmount' => [''],
         ];
     }
 

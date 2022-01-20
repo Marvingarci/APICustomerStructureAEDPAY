@@ -28,6 +28,12 @@ class Contract extends Model
         'endDate',
         'status',
         'signature',
+        'freeMonths',
+        'grossAmount',
+        'totalContract',
+        'frequency',
+        'netContract',
+        'netAmount',
     ];
 
     public function location()

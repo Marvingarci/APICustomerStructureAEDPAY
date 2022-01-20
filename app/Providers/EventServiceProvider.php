@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Models\LocationAcc;
 use App\Observers\LocationObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**

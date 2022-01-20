@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLocation extends FormRequest
 {
@@ -17,7 +18,7 @@ class StoreLocation extends FormRequest
             'primaryAccPmaId' => [],
             'DID' => ['required', 'max:255'],
             'fullName' => ['required', 'max:255'],
-            'username' => ['required', 'max:255'],
+            'username' => ['required', 'max:255', Rule::unique('location_accs')],
             'password' => ['required'],
             'locationName' => ['required'],
             'companyLegalName' => ['required'],
@@ -31,6 +32,7 @@ class StoreLocation extends FormRequest
     public function messages()
     {
         return [
+            'username.required' => 'Username is required',
             'username.required' => 'Username is required',
             //'firstName.max' => 'First Name is too long',
             'password.required' => 'Password is required',

@@ -48,7 +48,11 @@ class ContractController extends Controller
         $contract->servicesCatalogCorpId = $data['servicesCatalogCorpId'];
         $contract->fullName = $data['fullName'];
         $contract->terms = $data['terms'];
-        $contract->description = $data['description'];
+        if(is_null($data['description'])){
+            $contract->description = '';
+        }else{
+            $contract->description = $data['description'];
+        }
         $contract->amount = $data['amount'];
         $contract->numMonth = $data['numMonth'];
         $contract->numPayments = $data['numPayments'];
@@ -57,7 +61,21 @@ class ContractController extends Controller
         $contract->endDate = $data['endDate'];
         $contract->status = $data['status'];
         $contract->signature = $data['signature'];
+        $contract->freeMonths = $data['freeMonths'];
+        $contract->frequency = $data['frequency'];
+        $contract->grossAmount = $data['grossAmount'];
+        $contract->totalContract = $data['totalContract'];
+        $contract->netContract = $data['netContract'];
+        $contract->netAmount = $data['netAmount'];
         $contract->save();
+
+        // freeMonths : ['', [ ]],
+        // Frequency : ['', [ ]],
+        // grossAmount : ['', [ ]],
+        // totalContract : ['', [ ]],
+        // netContract : ['', [ ]],
+        // contractBody : ['', [Validators.required ]],
+        // netAmount : ['', [Validators.required ]],
 
         // $contracts = Contract::where('locationAccLocationId', $contract->locationAccLocationId)->get();
 

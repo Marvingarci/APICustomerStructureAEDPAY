@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class PrimaryAccController extends Controller 
 {
@@ -25,15 +26,26 @@ class PrimaryAccController extends Controller
     {
         return response()->json(PrimaryAcc::all());
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function verifyEmail($code)
     {
-        
+        $primaryAcc = PrimaryAcc::where('remember_token', $code)->first();
+        if($primaryAcc == null){
+            return response()->json([
+                'message' => 'Wrong code'
+            ], 201);
+        }else{
+            $primaryAcc->email_verified_at = date('d-m-y h:i:s');
+            $primaryAcc->save();
+            return response()->json([
+                'message' => 'Account verified succesfully'
+            ], 201);
+        }
+
     }
 
     /**
@@ -69,7 +81,7 @@ class PrimaryAccController extends Controller
     public function save(StorePrimaryAccount $request)
     {
         $uuid = Str::uuid()->toString();
-
+        $codeToVerify = rand(100000, 999999);
         $data = $request->validated();
 
         $account = new User;
@@ -79,6 +91,7 @@ class PrimaryAccController extends Controller
         $account->email = $data['email'];
         $account->aedAsignType = $data['aedAsignType'];
         $account->password = bcrypt($data['password']);
+        $account->remember_token = $codeToVerify;
         $account->save();
 
         // $user = User::create([
@@ -89,9 +102,23 @@ class PrimaryAccController extends Controller
         //     'aedAsignType' => $data['aedAsignType'],
         // ]);
 
-        //event(new Registered($user));
+        // event(new Registered($account));
 
-        // Auth::login($account);
+        //  Auth::login($account);
+
+        //send email
+        $subject = "Verification Email aedpay customers";
+        $email = $data['email'];
+        $data = [
+            'code' => $codeToVerify,
+            'name'=> $data['firstName']
+          ];
+        Mail::send('emailPaymentVerifications', $data, function($msj) use($subject, $email ){
+            $msj->from("noreply@aedpay.com","aedpay");
+            $msj->subject($subject);
+            $msj->to($email);            
+        }); 
+        
 
         return response()->json([
             'message' => 'Account created succesfully'
