@@ -166,28 +166,8 @@ class LocationAccController extends Controller
     public function disableLocation(Request $request)
     {
         $p = LocationAcc::where('locationId', $request->locationId)->first();
-        // $locationsPrimary = $p->locations;
-        // $locationsBackUp = $p->locationsBackUp;
-        //dd($p);
-
-        // I used to change state
-        // $p->status = false;
-        // $p->username = $p->username."DISABLED";
+        
         $p->delete();
-
-
-
-        // foreach ($locationsPrimary as $location) {
-        //     $location = LocationAcc::where('locationId', $location['locationId'])->first();
-        //     $location->paymentTypePayId = null;
-        //     $location->save();
-        // }
-
-        // foreach ($locationsBackUp as $location) {
-        //     $location = LocationAcc::where('locationId', $location['locationId'])->first();
-        //     $location->paymentType2PayId = null;
-        //     $location->save();
-        // }
 
         return response()->json([
             'message' => 'Location deleted succesfully'

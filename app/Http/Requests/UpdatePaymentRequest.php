@@ -33,7 +33,7 @@ class UpdatePaymentRequest extends FormRequest
             'ccv' => ['required'],
             // 'cardType' => ['required'],
             'address' => ['required'],
-            'address2' => ['required'],
+            'address2' => [''],
             'zip' => ['required'],
             'phone' => ['required'],
             'city' => ['required'],

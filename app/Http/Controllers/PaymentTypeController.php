@@ -207,8 +207,7 @@ class PaymentTypeController extends Controller
         // dd($p->locationsBackUp);
         $locationsPrimary = $p->locations;
         $locationsBackUp = $p->locationsBackUp;
-        $p->status = false;
-        $p->save();
+       
 
         foreach ($locationsPrimary as $location) {
             $location = LocationAcc::where('locationId', $location['locationId'])->first();
@@ -221,6 +220,9 @@ class PaymentTypeController extends Controller
             $location->paymentType2PayId = null;
             $location->save();
         }
+
+        $p->status = false;
+        $p->delete();
 
         return response()->json([
             'message' => 'Payment method disable succesfully'
