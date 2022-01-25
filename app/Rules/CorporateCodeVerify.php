@@ -26,7 +26,7 @@ class CorporateCodeVerify implements Rule
      */
     public function passes($attribute, $value)
     {
-        $quantity = DB::table('corporate_customers')->where('corpId', $value)->count();
+        $quantity = DB::table('corporate_customers')->where('corpCode', $value)->count();
         if($quantity == 1){
             return true;
         } else{

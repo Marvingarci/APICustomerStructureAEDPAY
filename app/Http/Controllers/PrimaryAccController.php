@@ -84,28 +84,19 @@ class PrimaryAccController extends Controller
         $codeToVerify = rand(100000, 999999);
         $data = $request->validated();
 
+        $corporate = DB::table('corporate_customers')->where('corpCode', $data['aedAsignType'])->first();
+
         $account = new User;
         $account->pmaId = $uuid; 
         $account->firstName = $data['firstName'];
         $account->lastName = $data['lastName'];
         $account->email = $data['email'];
-        $account->aedAsignType = $data['aedAsignType'];
+        $account->aedAsignType = $corporate->corpId;
         $account->password = bcrypt($data['password']);
         $account->remember_token = $codeToVerify;
         $account->save();
 
-        // $user = User::create([
-        //     'pmaId' => $account->pmaId = $uuid,
-        //     'firstName' => $data['firstName'],
-        //     'email' =>  $data['email'],
-        //     'password' => bcrypt($data['password']),
-        //     'aedAsignType' => $data['aedAsignType'],
-        // ]);
-
-        // event(new Registered($account));
-
-        //  Auth::login($account);
-
+      
         //send email
         $subject = "Verification Email aedpay customers";
         $email = $data['email'];
