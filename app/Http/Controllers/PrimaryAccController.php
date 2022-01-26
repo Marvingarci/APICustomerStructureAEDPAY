@@ -116,6 +116,46 @@ class PrimaryAccController extends Controller
         ], 201);
     }
 
+    public function sendEmailToChangePassword($email)
+    {
+        $primary = PrimaryAcc::where('email', $email)->first();
+
+        if(is_null($primary)){
+            return response()->json([
+                'message' => 'No account'
+            ], 200);
+        }
+      
+        //send email
+        $subject = "Password Change aedpay";
+        $data = [
+            'code' => $primary->pmaId,
+            'name'=> $primary->firstName.' '.$primary->lastName
+          ];
+        Mail::send('changePassword', $data, function($msj) use($subject, $email ){
+            $msj->from("noreply@aedpay.com","aedpay");
+            $msj->subject($subject);
+            $msj->to($email);            
+        }); 
+        
+
+        return response()->json([
+            'message' => 'Email sent successfuly'
+        ], 201);
+    }
+
+    public function changePassword(Request $request)
+    {
+        
+        $primary = PrimaryAcc::where('pmaId', $request['pmaId'])->first();
+        $primary->password = bcrypt($request['password']);
+        $primary->save();
+
+        return response()->json([
+            'message' => 'Password change succesfuly'
+        ], 201);
+    }
+
     /**
      * Display the specified resource.
      *
